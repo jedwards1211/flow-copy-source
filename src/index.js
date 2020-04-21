@@ -10,21 +10,11 @@ const jsAndJsxPattern = '**/*.{js,mjs,jsx}';
 module.exports = function flowCopySource(sources, dest, options) {
   const verbose = options && options.verbose;
   const ignore = options && options.ignore;
-  const watch = options && options.watch;
 
   return Kefir.merge(
       sources.map(src => {
         let filesToCopy;
-        if (watch) {
-          const chokidar = require('chokidar');
-          const watcher = chokidar.watch(jsAndJsxPattern, {cwd: src, ignored: ignore});
-          filesToCopy = Kefir.merge([
-            Kefir.fromEvents(watcher, 'add'),
-            Kefir.fromEvents(watcher, 'change')
-          ]);
-        } else {
-          filesToCopy = kefirGlob(jsAndJsxPattern, {cwd: src, strict: true, ignore});
-        }
+        filesToCopy = kefirGlob(jsAndJsxPattern, {cwd: src, strict: true, ignore});
 
         return filesToCopy.map(match => ({src, match}));
       })

@@ -36,9 +36,6 @@
     "kefir": "^3.7.3",
     "yargs": "^15.0.1"
   },
-  "optionalDependencies": {
-    "chokidar": "^3.0.0"
-  },
   "devDependencies": {
     "jest": "^24.1.0",
     "tmp": "0.1.0"
